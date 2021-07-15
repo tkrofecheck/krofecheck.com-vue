@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Utils from '@/utils/index';
+import { formatArray } from '@/utils/index';
 
 export default {
   name: 'Profile',
@@ -17,14 +17,14 @@ export default {
   data() {
     return {
       company: 'WebMD / Medscape Professional',
-      hobbies: Utils.formatArray([
+      hobbies: formatArray([
         'broadway',
         'tv/movies',
         'restaurants',
         'wine tasting',
         'video games',
       ]),
-      industries: Utils.formatArray([
+      industries: formatArray([
         'education',
         'email marketing',
         'news/media',

@@ -1,5 +1,5 @@
 <template>
-  <v-sheet>
+  <v-sheet id="home">
     <profile />
   </v-sheet>
 </template>
