@@ -1,0 +1,34 @@
+$green: #36a436;
+$lightGreen: #b0baa6;
+$darkGreen: #006400;
+$lightGray: #f4f4f4;
+$midGray: #eaeaea;
+$gray: #838383;
+$darkGray: #878f98;
+$blue: #0b6fa7;
+$lightBlue: #47a1f1;
+$orange: #f8981d;
+$lightOrange: #ffcebf;
+$red: #ff2600;
+$black: #000000;
+$white: #ffffff;
+
+// Poll
+$checkedColor: #00f;
+$defaultColor: #000;
+$correctColor: #0c0;
+$wrongColor: #c00;
+$perctageBar: rgba(8, 90, 129, 0.15);
+$selectedBorderColor: #74a2b8;
+
+$blackTransparent: rgba(0, 0, 0, 0.8);
+
+// A map of breakpoints. - used by mixins for media queries
+$breakpoints: (
+  phone: 376px,
+  largephone: 480px,
+  phablet: 767px,
+  tablet: 768px,
+  desktop: 1224px,
+  largescreen: 1824px,
+);

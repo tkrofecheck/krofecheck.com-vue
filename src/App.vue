@@ -1,32 +1,69 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <v-app id="inspire">
+    <div id="app">
+      <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" app>
+        <v-list-item class="px-2">
+          <v-list-item-avatar>
+            <v-img src="./assets/mugshot.jpg"></v-img>
+          </v-list-item-avatar>
+
+          <v-list-item-title>Tim Krofecheck</v-list-item-title>
+
+          <v-btn icon @click.stop="mini = !mini">
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+        </v-list-item>
+
+        <v-divider></v-divider>
+
+        <v-list dense>
+          <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            @click="$router({ path: item.route })"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <!-- Sizes your content based upon application components -->
+      <v-main>
+        <!-- Provides the application the proper gutter -->
+        <v-container fluid>
+          <!-- If using vue-router -->
+          <router-view></router-view>
+        </v-container>
+      </v-main>
     </div>
-    <router-view />
-  </div>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  name: 'App',
+  components: {},
+  data() {
+    return {
+      drawer: true,
+      items: [
+        { title: 'Home', icon: 'mdi-home-city', route: '/' },
+        { title: 'Portfolio', icon: 'mdi-view-dashboard', route: '/portfolio' },
+      ],
+      social: [
+        { title: 'LinkedIn', icon: 'mdi-linkedin' },
+        { title: 'Github', icon: 'mdi-github' },
+      ],
+      mini: true,
+    };
+  },
+};
+</script>
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+<style lang="scss"></style>
