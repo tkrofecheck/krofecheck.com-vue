@@ -1,13 +1,28 @@
 <template>
   <v-sheet id="home">
-    <profile :intro="about" title="About Me" background="dark-abstract.png" />
-    <profile :list="skillset" title="Skills" background="blue-tech.jpg" />
+    <profile :intro="about" title="Who is he?" background="dark-abstract.png" />
     <profile
-      :list="industries"
-      title="Industry Experience"
+      :max="skillset.max"
+      :list="skillset.list"
+      :progress="true"
+      title="What can he do?"
       background="blue-tech.jpg"
     />
-    <profile :list="hobbies" title="Hobbies" background="blue-tech.jpg" />
+    <profile
+      :list="industries"
+      title="Where has he been?"
+      background="blue-tech.jpg"
+    />
+    <profile
+      :list="hobbies"
+      title="Why not enjoy this?"
+      background="blue-tech.jpg"
+    />
+    <profile
+      :contact="true"
+      title="How do you contact me?"
+      background="blue-tech.jpg"
+    />
   </v-sheet>
 </template>
 
@@ -41,15 +56,21 @@ export default {
         'industrial products',
         'health/news',
       ],
-      skillset: [
-        'Vue/Vuex',
-        'React',
-        'GraphQL',
-        'Apollo',
-        'Webpack',
-        'Grunt',
-        'Gulp',
-      ],
+      skillset: {
+        max: 16,
+        list: [
+          { name: 'HTML', years: 16 },
+          { name: 'CSS', years: 16 },
+          { name: 'JavaScript', years: 16 },
+          { name: 'Vue/Vuex', years: 2 },
+          { name: 'Vuetify', years: 1 },
+          { name: 'React', years: 2 },
+          { name: 'GraphQL', years: 1 },
+          { name: 'Apollo Client', years: 1 },
+          { name: 'Webpack', years: 5 },
+          { name: 'SCSS', years: 8 },
+        ],
+      },
     };
   },
 };

@@ -16,7 +16,7 @@
           <v-list-item-title>Tim Krofecheck</v-list-item-title>
 
           <v-btn icon @click.stop="mini = !mini">
-            <v-icon>mdi-chevron-left</v-icon>
+            <v-icon>mdi-chevron-right</v-icon>
           </v-btn>
         </v-list-item>
 
@@ -62,13 +62,7 @@
         </v-container>
       </v-main>
 
-      <v-footer
-        class="d-flex justify-space-between"
-        elevation="10"
-        inset
-        app
-        absolute
-      >
+      <v-footer class="d-flex justify-space-between" elevation="10" inset app>
         <div v-html="copyright"></div>
         <div v-html="buildInfo"></div>
       </v-footer>
@@ -87,6 +81,7 @@ export default {
       buildInfo: `v${version}`,
       copyright: `&copy;${new Date().getFullYear()} - krofecheck.com`,
       drawer: true,
+      expYears: 16,
       items: [
         { title: 'Home', icon: 'mdi-home-city', route: '/' },
         { title: 'Portfolio', icon: 'mdi-view-dashboard', route: '/portfolio' },
