@@ -62,29 +62,29 @@
         </v-container>
       </v-main>
 
-      <v-footer elevation="10" inset app>
-        <div class="text-center d-flex align-center justify-space-around">
-          <span v-html="copyright"></span>
-          <v-tooltip bottom right>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn color="primary" dark v-bind="attrs" v-on="on">
-                Info
-              </v-btn>
-            </template>
-            <span>Site built using Vue.js (vue, vuex, vuetify)</span>
-          </v-tooltip>
-        </div>
+      <v-footer
+        class="d-flex justify-space-between"
+        elevation="10"
+        inset
+        app
+        absolute
+      >
+        <div v-html="copyright"></div>
+        <div v-html="buildInfo"></div>
       </v-footer>
     </v-app>
   </div>
 </template>
 
 <script>
+import { version } from '../package.json';
+
 export default {
   name: 'App',
   components: {},
   data() {
     return {
+      buildInfo: `v${version}`,
       copyright: `&copy;${new Date().getFullYear()} - krofecheck.com`,
       drawer: true,
       items: [

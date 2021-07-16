@@ -1,6 +1,11 @@
 <template>
   <div id="portfolio">
-    <project msg="project name" />
+    <project
+      v-for="(index, project) in projects"
+      :key="index"
+      :name="project.name"
+      :slides="project.slides"
+    />
   </div>
 </template>
 
@@ -11,6 +16,11 @@ export default {
   name: 'Portfolio',
   components: {
     Project,
+  },
+  data() {
+    return {
+      projects: [],
+    };
   },
 };
 </script>
