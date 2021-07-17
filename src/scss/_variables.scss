@@ -13,6 +13,9 @@ $red: #ff2600;
 $black: #000000;
 $white: #ffffff;
 
+$drawerBlue: rgb(37, 72, 140);
+$drawerLightBlue: rgb(220, 231, 252);
+
 // Poll
 $checkedColor: #00f;
 $defaultColor: #000;
@@ -24,8 +27,7 @@ $selectedBorderColor: #74a2b8;
 $blackTransparent: rgba(0, 0, 0, 0.8);
 
 // A map of breakpoints. - used by mixins for media queries
-$breakpoints: (
-  phone: 376px,
+$breakpoints: (phone: 376px,
   largephone: 480px,
   phablet: 767px,
   tablet: 768px,

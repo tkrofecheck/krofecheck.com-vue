@@ -7,16 +7,19 @@
         permanent
         right
         app
+        class="drawer__bg"
       >
         <v-list-item class="px-2">
           <v-list-item-avatar>
             <v-img src="./assets/mugshot.jpg"></v-img>
           </v-list-item-avatar>
 
-          <v-list-item-title>Tim Krofecheck</v-list-item-title>
+          <v-list-item-title class="drawer__content"
+            >Tim Krofecheck</v-list-item-title
+          >
 
           <v-btn icon @click.stop="mini = !mini">
-            <v-icon>mdi-chevron-right</v-icon>
+            <v-icon class="drawer__content">mdi-chevron-right</v-icon>
           </v-btn>
         </v-list-item>
 
@@ -25,11 +28,13 @@
         <v-list dense>
           <v-list-item v-for="item in items" :key="item.title" :to="item.route">
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon class="drawer__content">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title class="drawer__content">{{
+                item.title
+              }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -43,11 +48,13 @@
             @click="goTo(item, $event)"
           >
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon class="drawer__content">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title class="drawer__content">{{
+                item.title
+              }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -62,9 +69,14 @@
         </v-container>
       </v-main>
 
-      <v-footer class="d-flex justify-space-between" elevation="10" inset app>
-        <div v-html="copyright"></div>
-        <div v-html="buildInfo"></div>
+      <v-footer
+        class="d-flex justify-space-between drawer__bg"
+        elevation="10"
+        inset
+        app
+      >
+        <div v-html="copyright" class="drawer__content"></div>
+        <div v-html="buildInfo" class="drawer__content"></div>
       </v-footer>
     </v-app>
   </div>
@@ -113,4 +125,11 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.drawer__bg {
+  background-color: $drawerLightBlue !important;
+}
+.drawer__content {
+  color: $drawerBlue !important;
+}
+</style>

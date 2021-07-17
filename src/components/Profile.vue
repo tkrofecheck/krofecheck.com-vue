@@ -1,31 +1,40 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 sm12>
-      <v-card v-if="intro" class="mx-auto">
-        <v-parallax :src="getImageUrl(background)">
+      <v-card v-if="intro" class="mx-auto mb-4" tile>
+        <v-parallax :src="getImageUrl(background)" class="intro">
           <v-card-title>{{ title }}</v-card-title>
           <v-card-text>
-            <v-row align="center" class="mx-0">
-              <span>{{ intro }}</span>
-            </v-row>
+            <span>{{ intro }}</span>
           </v-card-text>
         </v-parallax>
       </v-card>
 
-      <v-card v-else class="mx-auto my-4" max-width="400">
-        <v-parallax :src="getImageUrl(background)" :height="100">
+      <v-card v-else class="mx-auto my-4" tile>
+        <v-parallax
+          :src="getImageUrl(background)"
+          :height="100"
+          class="no-intro"
+        >
           <v-card-title class="no-break">{{ title }}</v-card-title>
         </v-parallax>
 
         <v-card-text>
-          <div v-if="progress">
-            <span v-for="(item, index) in list" :key="index">
-              <item-progress
-                :color="randomColor(index)"
-                :item="item"
-                :progress="getProgress(item.years, max)"
-              ></item-progress>
-            </span>
+          <div v-if="progress" class="d-flex justify-space-between flex-wrap">
+            <v-card
+              v-for="(sublist, idx1) in chunkedList"
+              :key="idx1"
+              class="d-flex flex-column align-stretch mb-2 mx-1"
+              width="45%"
+            >
+              <div v-for="(item, idx2) in sublist" :key="idx2">
+                <item-progress
+                  :color="randomColor(`${idx1}.${idx2}`)"
+                  :item="item"
+                  :progress="getProgress(item.years, max)"
+                ></item-progress>
+              </div>
+            </v-card>
           </div>
           <div v-else-if="contact">
             <contact-form></contact-form>
@@ -56,6 +65,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    divided: {
+      type: Boolean,
+      default: false,
+    },
     intro: {
       type: String,
       default: '',
@@ -81,9 +94,22 @@ export default {
     return {
       buffer: 16,
       colorCache: {},
+      chunkedList: this.divided > 0 ? this.chunkList(5, this.list) : [],
     };
   },
   methods: {
+    chunkList(chunk_size, arr) {
+      const group = arr
+        .map(function (e, i) {
+          return i % chunk_size === 0 ? arr.slice(i, i + chunk_size) : null;
+        })
+        .filter(function (e) {
+          return e;
+        });
+
+      console.log('group', group);
+      return group;
+    },
     formatArray(data) {
       const formattedData = data.map((item, index) => {
         return index < data.length - 1 ? ` ${item}` : ` and ${item}`;
@@ -110,6 +136,25 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.intro {
+  @include respond-above(phablet) {
+    .v-card__title {
+      font-size: 2rem;
+    }
+
+    .v-card__text {
+      font-size: 1.5rem;
+      line-height: 1.75rem;
+    }
+  }
+}
+.no-intro {
+  @include respond-above(phablet) {
+    .v-card__title {
+      font-size: 1.75rem;
+    }
+  }
+}
 .no-break {
   word-break: normal;
 }
