@@ -3,9 +3,9 @@
     <v-row dense>
       <v-col cols="12">
         <profile
-          :intro="`Tim Krofecheck is a seasoned Web Developer with ${skillset.max} years professional experience currently living in Queens, NY and working at WebMD as Senior Web Developer. Prior to WebMD, Tim worked at Time Inc as an HTML5 developer creating webview storefronts on the iPad, iPhone and Kindle Fire. Tim has also upheld several development roles at the New York Post and Acxiom Digital. While working full-time, Tim has worked as a Freelancer and Contractor to build professional relationships and enhance his skill-set.`"
+          :intro="`Hi, my name is Tim Krofecheck! I am a seasoned Web Developer with ${skillset.max} years professional experience. I live in Queens, NY and working at WebMD as Senior Web Developer. Currently, my favorite tech to work with Vue.js. Prior to WebMD, I worked at Thomas as a UI Engineer helping rebrand the company website. I've also spent time at Time Inc. as an HTML5 developer creating webview storefronts on the iPad, iPhone and Kindle Fire. I've also upheld several development roles at the New York Post, Acxiom Digital and Colgate University. During my free time, I enjoy Freelancing and networking with others, so feel free to send me a message!`"
           title="Who is he?"
-          background="dark-abstract.png"
+          background="blue-tech.jpg"
         ></profile>
       </v-col>
       <v-col cols="12">
@@ -15,6 +15,7 @@
           :divided="true"
           :progress="true"
           title="What can he do?"
+          :info="`My skill-set with years of experience throughout my career of ${skillset.max} years.`"
           background="blue-tech.jpg"
         ></profile>
         <profile

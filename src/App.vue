@@ -11,7 +11,11 @@
       >
         <v-list-item class="px-2">
           <v-list-item-avatar>
-            <v-img src="./assets/mugshot.jpg"></v-img>
+            <v-img
+              src="./assets/mugshot.jpg"
+              alt="Tim Krofecheck"
+              title="Tim Krofecheck"
+            ></v-img>
           </v-list-item-avatar>
 
           <v-list-item-title class="drawer__content"
@@ -19,7 +23,9 @@
           >
 
           <v-btn icon @click.stop="mini = !mini">
-            <v-icon class="drawer__content">mdi-chevron-right</v-icon>
+            <v-icon class="drawer__content" title="Close Menu"
+              >mdi-chevron-right</v-icon
+            >
           </v-btn>
         </v-list-item>
 
@@ -28,7 +34,9 @@
         <v-list dense>
           <v-list-item v-for="item in items" :key="item.title" :to="item.route">
             <v-list-item-icon>
-              <v-icon class="drawer__content">{{ item.icon }}</v-icon>
+              <v-icon class="drawer__content" :title="item.title">{{
+                item.icon
+              }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -48,7 +56,9 @@
             @click="goTo(item, $event)"
           >
             <v-list-item-icon>
-              <v-icon class="drawer__content">{{ item.icon }}</v-icon>
+              <v-icon class="drawer__content" :title="item.title">{{
+                item.icon
+              }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
@@ -58,6 +68,13 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
+
+        <v-divider></v-divider>
+
+        <div class="site__info">
+          <div v-html="copyright" class="drawer__content--small"></div>
+          <div v-html="buildInfo" class="drawer__content--small"></div>
+        </div>
       </v-navigation-drawer>
 
       <!-- Sizes your content based upon application components -->
@@ -68,16 +85,6 @@
           <router-view></router-view>
         </v-container>
       </v-main>
-
-      <v-footer
-        class="d-flex justify-space-between drawer__bg"
-        elevation="10"
-        inset
-        app
-      >
-        <div v-html="copyright" class="drawer__content"></div>
-        <div v-html="buildInfo" class="drawer__content"></div>
-      </v-footer>
     </v-app>
   </div>
 </template>
@@ -91,7 +98,7 @@ export default {
   data() {
     return {
       buildInfo: `v${version}`,
-      copyright: `&copy;${new Date().getFullYear()} - <a href="//krofecheck.com">krofecheck.com</a>`,
+      copyright: `&copy;${new Date().getFullYear()}`,
       drawer: true,
       expYears: 16,
       items: [
@@ -126,13 +133,41 @@ export default {
 </script>
 
 <style lang="scss">
+.close__btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 10px 0px 0px;
+}
 .drawer__bg {
   background-color: $drawerLightBlue !important;
 }
 .drawer__content {
   color: $drawerBlue !important;
+
+  a {
+    color: inherit !important;
+  }
+}
+.hide {
+  display: none;
 }
 .no-overflow-x {
   overflow-x: hidden;
+}
+.no-wordbreak {
+  word-break: normal;
+}
+.site__info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+  width: 100%;
+  text-align: right;
+}
+
+.drawer__content--small {
+  font-size: 0.75rem;
 }
 </style>

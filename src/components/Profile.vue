@@ -13,10 +13,13 @@
       <v-card v-else class="mx-auto my-4" tile>
         <v-parallax
           :src="getImageUrl(background)"
-          :height="100"
+          :height="`${info ? 150 : 100}`"
           class="no-intro"
         >
-          <v-card-title class="no-break">{{ title }}</v-card-title>
+          <v-card-title class="no-wordbreak">{{ title }}</v-card-title>
+          <v-card-text v-if="info">
+            <span>{{ info }}</span>
+          </v-card-text>
         </v-parallax>
 
         <v-card-text>
@@ -26,6 +29,7 @@
               :key="idx1"
               class="d-flex flex-column align-stretch mb-2 mx-1"
               width="45%"
+              flat
             >
               <item-progress
                 v-for="(item, idx2) in sublist"
@@ -42,7 +46,7 @@
               transition="dialog-bottom-transition"
               scrollable
             >
-              <template v-slot:activator="{ on, attrs }">
+              <template v-slot:activator="{ on, attrs }" class="mx-auto">
                 <v-btn
                   color="primary"
                   class="ma-2"
@@ -85,6 +89,10 @@ export default {
     divided: {
       type: Boolean,
       default: false,
+    },
+    info: {
+      type: String,
+      default: '',
     },
     intro: {
       type: String,
@@ -157,6 +165,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.intro,
+.no-intro {
+  text-shadow: 3px 1px black;
+}
+
 .intro {
   @include respond-above(phablet) {
     .v-card__title {
@@ -175,8 +188,5 @@ export default {
       font-size: 1.75rem;
     }
   }
-}
-.no-break {
-  word-break: normal;
 }
 </style>

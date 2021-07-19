@@ -1,9 +1,8 @@
 <template>
   <v-card class="mx-auto px-4 py-4" tile>
     <v-card-title>
-      <div class="closeBtn" @click="cancel"><v-icon>mdi-close</v-icon></div>
+      <div class="close__btn" @click="cancel"><v-icon>mdi-close</v-icon></div>
     </v-card-title>
-    <v-divider></v-divider>
     <v-card-text class="no-overflow-x pl-0 pr-0">
       <validation-observer ref="observer" v-slot="{ invalid }">
         <form @submit.prevent="submit">
@@ -70,7 +69,7 @@
     </v-card-text>
     <v-divider></v-divider>
     <v-card-subtitle class="pb-0 pl-0 pr-0">
-      <v-footer class="footer inline-block mt-4">
+      <v-footer class="footer inline-block no-wordbreak mt-4">
         Upon clicking 'Submit', you will be redirected to a third-party
         site.</v-footer
       >
@@ -176,15 +175,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.closeBtn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 5px 10px 0px 0px;
-}
-
 .footer {
   font-size: 0.75rem;
-  word-break: normal;
 }
 </style>

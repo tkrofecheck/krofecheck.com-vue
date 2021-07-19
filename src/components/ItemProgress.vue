@@ -1,8 +1,17 @@
 <template>
-  <v-card v-intersect="onIntersect">
+  <v-card
+    v-intersect="{
+      handler: onIntersect,
+      options: {
+        threshold: 1.0,
+      },
+    }"
+    flat
+    tile
+  >
     <span>{{ item.name }}</span>
     <v-progress-linear
-      v-model="intersectingProgress"
+      :value="intersectingProgress"
       :color="color"
       height="25"
       :indeterminate="isIntersecting"
@@ -35,17 +44,12 @@ export default {
       isIntersecting: true,
     };
   },
-  created() {
-    console.log('progress', this);
-  },
   methods: {
     onIntersect(entries) {
-      setTimeout(() => {
-        this.isIntersecting = !entries[0].isIntersecting;
-        this.intersectingProgress = entries[0].isIntersecting
-          ? this.progress
-          : 100;
-      }, 1000);
+      this.isIntersecting = !entries[0].isIntersecting;
+      this.intersectingProgress = entries[0].isIntersecting
+        ? this.progress
+        : 100;
     },
   },
 };

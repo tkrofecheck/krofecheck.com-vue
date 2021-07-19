@@ -12,7 +12,7 @@ module.exports = {
 
   css: {
     extract: {
-      filename: 'css/brandalert.css',
+      filename: 'css/app.css',
     },
     loaderOptions: {
       scss: {
@@ -28,7 +28,7 @@ module.exports = {
 
   configureWebpack: {
     entry: {
-      brandalert: './src/main.js',
+      app: './src/main.js',
     },
     output: {
       filename: 'js/[name].js',
