@@ -27,17 +27,34 @@
               class="d-flex flex-column align-stretch mb-2 mx-1"
               width="45%"
             >
-              <div v-for="(item, idx2) in sublist" :key="idx2">
-                <item-progress
-                  :color="randomColor(`${idx1}.${idx2}`)"
-                  :item="item"
-                  :progress="getProgress(item.years, max)"
-                ></item-progress>
-              </div>
+              <item-progress
+                v-for="(item, idx2) in sublist"
+                :key="idx2"
+                :color="randomColor(`${idx1}.${idx2}`)"
+                :item="item"
+                :progress="getProgress(item.years, max)"
+              ></item-progress>
             </v-card>
           </div>
           <div v-else-if="contact">
-            <contact-form></contact-form>
+            <v-dialog
+              v-model="dialog"
+              transition="dialog-bottom-transition"
+              scrollable
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  class="ma-2"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  Send a Message!
+                </v-btn>
+              </template>
+              <contact-form @cancelMessage="closeContactForm"></contact-form>
+            </v-dialog>
           </div>
           <div v-else>{{ formatArray(list) }}</div>
         </v-card-text>
@@ -94,7 +111,8 @@ export default {
     return {
       buffer: 16,
       colorCache: {},
-      chunkedList: this.divided > 0 ? this.chunkList(5, this.list) : [],
+      dialog: false,
+      chunkedList: this.divided > 0 ? this.chunkList(10, this.list) : [],
     };
   },
   methods: {
@@ -109,6 +127,9 @@ export default {
 
       console.log('group', group);
       return group;
+    },
+    closeContactForm($event, value) {
+      this.dialog = value;
     },
     formatArray(data) {
       const formattedData = data.map((item, index) => {

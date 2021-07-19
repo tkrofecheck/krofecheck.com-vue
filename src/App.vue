@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       buildInfo: `v${version}`,
-      copyright: `&copy;${new Date().getFullYear()} - krofecheck.com`,
+      copyright: `&copy;${new Date().getFullYear()} - <a href="//krofecheck.com">krofecheck.com</a>`,
       drawer: true,
       expYears: 16,
       items: [
@@ -131,5 +131,8 @@ export default {
 }
 .drawer__content {
   color: $drawerBlue !important;
+}
+.no-overflow-x {
+  overflow-x: hidden;
 }
 </style>

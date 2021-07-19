@@ -1,58 +1,81 @@
 <template>
-  <validation-observer ref="observer" v-slot="{ invalid }">
-    <form v-if="!messageSent" @submit.prevent="submit">
-      <validation-provider
-        v-slot="{ errors }"
-        name="Name"
-        rules="required|max:20"
-      >
-        <v-text-field
-          v-model="name"
-          :counter="20"
-          :error-messages="errors"
-          label="Name"
-          required
-        ></v-text-field>
-      </validation-provider>
-      <validation-provider
-        v-slot="{ errors }"
-        name="email"
-        rules="required|email"
-      >
-        <v-text-field
-          v-model="email"
-          :error-messages="errors"
-          label="E-mail"
-          required
-        ></v-text-field>
-      </validation-provider>
-      <validation-provider v-slot="{ errors }" name="select" rules="required">
-        <v-select
-          v-model="select"
-          :items="items"
-          :error-messages="errors"
-          label="Topic"
-          data-vv-name="select"
-          required
-        ></v-select>
-      </validation-provider>
-      <validation-provider v-slot="{ errors }" name="message" rules="required">
-        <v-textarea
-          v-model="message"
-          :error-messages="errors"
-          label="Message"
-          required
-        ></v-textarea>
-      </validation-provider>
+  <v-card class="mx-auto px-4 py-4" tile>
+    <v-card-title>
+      <div class="closeBtn" @click="cancel"><v-icon>mdi-close</v-icon></div>
+    </v-card-title>
+    <v-divider></v-divider>
+    <v-card-text class="no-overflow-x pl-0 pr-0">
+      <validation-observer ref="observer" v-slot="{ invalid }">
+        <form @submit.prevent="submit">
+          <validation-provider
+            v-slot="{ errors }"
+            name="Name"
+            rules="required|max:20"
+          >
+            <v-text-field
+              v-model="name"
+              :counter="20"
+              :error-messages="errors"
+              label="Name"
+              required
+            ></v-text-field>
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="email"
+            rules="required|email"
+          >
+            <v-text-field
+              v-model="email"
+              :error-messages="errors"
+              label="E-mail"
+              required
+            ></v-text-field>
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="select"
+            rules="required"
+          >
+            <v-select
+              v-model="select"
+              :items="items"
+              :error-messages="errors"
+              label="Topic"
+              data-vv-name="select"
+              required
+            ></v-select>
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="message"
+            rules="required"
+          >
+            <v-textarea
+              v-model="message"
+              :error-messages="errors"
+              label="Message"
+              required
+            ></v-textarea>
+          </validation-provider>
 
-      <v-btn class="mr-4" type="submit" :disabled="invalid"> submit </v-btn>
-      <v-btn @click="clear"> clear </v-btn>
-    </form>
-    <div v-else>
-      <span>Message sent successfully!</span
-      ><v-btn secondary @click="newMessage($event)">Send New Message</v-btn>
-    </div>
-  </validation-observer>
+          <v-card-actions>
+            <v-btn class="mr-4" type="submit" :disabled="invalid">
+              submit
+            </v-btn>
+            <v-btn @click="clear"> clear </v-btn>
+          </v-card-actions>
+        </form>
+      </validation-observer>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-card-subtitle class="pb-0 pl-0 pr-0">
+      <v-footer class="footer inline-block mt-4">
+        Upon clicking 'Submit', you will be redirected to a third-party
+        site.</v-footer
+      >
+    </v-card-subtitle>
+  </v-card>
 </template>
 
 <script>
@@ -103,12 +126,16 @@ export default {
       name: '',
       email: '',
       select: null,
-      items: ['General', 'Freelancing', 'Other'],
+      items: ['General', 'Freelancing', 'Recruiter'],
       message: '',
-      messageSent: false,
+      formSubmitUrl: '',
+      formConfirmUrl: '',
     };
   },
-
+  mounted() {
+    this.formSubmitUrl = 'https://mailthis.to/TimKrofecheck';
+    this.formConfirmUrl = 'https://mailthis.to/confirm';
+  },
   methods: {
     submit() {
       if (!this.$refs.observer.validate()) {
@@ -126,31 +153,38 @@ export default {
 
       console.log('form_data', formData);
 
-      fetch('https://mailthis.to/TimKrofecheck', {
+      fetch(this.formSubmitUrl, {
         method: 'POST',
         body: formData,
       }).then((resData) => {
         console.log('form submit response', resData);
-        this.messageSent = true;
-        window.location.href = 'https://mailthis.to/confirm';
+        window.location.href = this.formConfirmUrl;
       });
+    },
+    cancel() {
+      this.$emit('cancelMessage', false);
     },
     clear() {
       this.name = '';
       this.email = '';
       this.message = '';
-      this.messageSent = false;
       this.select = null;
       this.$refs.observer.reset();
-    },
-    newMessage(event) {
-      if (event) {
-        event.preventDefault();
-      }
-
-      this.clear();
-      this.messageSent = false;
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.closeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 10px 0px 0px;
+}
+
+.footer {
+  font-size: 0.75rem;
+  word-break: normal;
+}
+</style>
