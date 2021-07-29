@@ -22,6 +22,7 @@
                 :display="project.display"
                 :name="project.name"
                 :url="company.url"
+                :note="company.note"
                 :image-folder="project.folder"
                 :images="project.images"
               ></project>
@@ -44,6 +45,7 @@ export default {
           company: 'WebMD (Medscape)',
           city: 'New York, NY',
           url: '//www.medscape.com',
+          note: '',
           industry: 'Health News - Publishing',
           projects: [
             {
@@ -58,6 +60,7 @@ export default {
           company: 'Thomas',
           city: 'New York, NY',
           url: '//www.thomasnet.com',
+          note: '',
           industry: 'Industry',
           projects: [
             {
@@ -72,6 +75,7 @@ export default {
           company: 'WebMD',
           city: 'New York, NY',
           url: '//www.webmd.com',
+          note: '',
           industry: 'Health News - Publishing',
           projects: [
             {
@@ -86,6 +90,7 @@ export default {
           company: 'Time Inc.',
           city: 'New York, NY',
           url: '//www.timeinc.com',
+          note: '',
           industry: 'Digital Media - Publishing',
           projects: [
             {
@@ -226,6 +231,7 @@ export default {
           company: 'New York Post',
           city: 'New York, NY',
           url: '//www.nypost.com',
+          note: '',
           industry: 'Digital Media - Publishing',
           projects: [
             {
@@ -314,10 +320,11 @@ export default {
           company: 'Acxiom Digital',
           city: 'New York, NY',
           url: '//www.acxiom.com',
+          note: 'Images may appear pixelated on larger screens due to their age and original screen capture size.',
           industry: 'Email Marketing',
           projects: [
             {
-              display: false,
+              display: true,
               name: 'Dynamic Newsletters / Microsite - Wyndham Worldwide Hotels',
               folder: 'acxiom/wyndham',
               images: [
@@ -333,7 +340,7 @@ export default {
               ],
             },
             {
-              display: false,
+              display: true,
               name: 'Microsites',
               folder: 'acxiom/microsites',
               images: [
@@ -363,6 +370,7 @@ export default {
           company: 'krofecheck.com',
           city: 'Queens, NY',
           url: '//wedding.krofecheck.com',
+          note: '',
           industry: 'Personal',
           projects: [
             {

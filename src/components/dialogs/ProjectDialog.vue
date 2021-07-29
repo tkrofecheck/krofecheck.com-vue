@@ -24,6 +24,11 @@
         v-html="company"
         @click.prevent="openPage($event, url)"
       ></v-card-subtitle>
+      <v-card-subtitle
+        v-if="note"
+        v-html="note"
+        class="pa-2 info"
+      ></v-card-subtitle>
     </div>
   </v-dialog>
 </template>
@@ -38,6 +43,7 @@ export default {
       company: '',
       name: '',
       url: '',
+      note: '',
       dialog: false,
       imageFolder: '',
       images: [],
@@ -47,19 +53,20 @@ export default {
     const vm = this;
     bus.$on(
       'project-dialog',
-      function (value, company, name, url, images, imageFolder) {
-        console.log(
-          'open project dialog',
+      function (value, company, name, note, url, images, imageFolder) {
+        console.log('open project dialog', {
           value,
           company,
           name,
+          note,
           url,
           images,
           imageFolder,
-        );
+        });
         vm.dialog = value;
         vm.company = company;
         vm.url = url;
+        vm.note = note;
         vm.name = name;
         vm.imageFolder = imageFolder;
         vm.images = images;

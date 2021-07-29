@@ -8,7 +8,7 @@
       dark
       title="View"
       @click.prevent="
-        openDialog($event, true, company, name, url, images, imageFolder)
+        openDialog($event, true, company, name, note, url, images, imageFolder)
       "
     >
       <span class="d-flex align-center justify-space-between">
@@ -36,6 +36,10 @@ export default {
       type: String,
       default: '',
     },
+    note: {
+      type: String,
+      default: '',
+    },
     imageFolder: {
       type: String,
       default: '',
@@ -60,12 +64,13 @@ export default {
     };
   },
   methods: {
-    openDialog(event, value, company, name, url, images, imageFolder) {
+    openDialog(event, value, company, name, note, url, images, imageFolder) {
       bus.$emit(
         'project-dialog',
         value,
         company,
         name,
+        note,
         url,
         images,
         imageFolder,
