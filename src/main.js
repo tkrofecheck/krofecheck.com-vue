@@ -5,6 +5,8 @@ import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 
+require('./components/dialogs'); // contact me and project dialogs
+
 Vue.config.productionTip = false;
 
 Vue.use(VueScrollTo, {

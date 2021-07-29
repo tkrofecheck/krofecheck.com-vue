@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import App from './App.store';
+import app from './app.store';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    App,
+    app,
   },
 });

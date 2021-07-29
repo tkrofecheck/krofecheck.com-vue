@@ -59,7 +59,7 @@
           </validation-provider>
 
           <v-card-actions>
-            <v-btn class="mr-4" type="submit" :disabled="invalid">
+            <v-btn class="primary mr-4" type="submit" :disabled="invalid">
               submit
             </v-btn>
             <v-btn @click="clear"> clear </v-btn>

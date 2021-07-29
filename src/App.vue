@@ -32,7 +32,12 @@
         <v-divider></v-divider>
 
         <v-list dense>
-          <v-list-item v-for="item in items" :key="item.title" :to="item.route">
+          <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            :to="item.route"
+            @click.prevent="contactMe($event, item.action)"
+          >
             <v-list-item-icon>
               <v-icon class="drawer__content" :title="item.title">{{
                 item.icon
@@ -78,11 +83,12 @@
       </v-navigation-drawer>
 
       <!-- Sizes your content based upon application components -->
-      <v-main>
+      <v-main id="main">
         <!-- Provides the application the proper gutter -->
         <v-container fluid>
           <!-- If using vue-router -->
           <router-view></router-view>
+          <contact-dialog></contact-dialog>
         </v-container>
       </v-main>
     </v-app>
@@ -91,6 +97,7 @@
 
 <script>
 import { version } from '../package.json';
+import { bus } from './bus';
 
 export default {
   name: 'App',
@@ -104,6 +111,7 @@ export default {
       items: [
         { title: 'Home', icon: 'mdi-home-city', route: '/' },
         { title: 'Portfolio', icon: 'mdi-view-dashboard', route: '/portfolio' },
+        { title: 'Contact', icon: 'mdi-at', action: 'contactMe' },
       ],
       social: [
         {
@@ -121,6 +129,13 @@ export default {
     };
   },
   methods: {
+    contactMe(event, action) {
+      console.log(action, event);
+      if (action === 'contactMe') {
+        event.stopPropagation(); // do not open app nav drawer
+        bus.$emit('contact-dialog', true);
+      }
+    },
     goTo(item, event) {
       if (event) {
         event.preventDefault();
@@ -139,9 +154,11 @@ export default {
   right: 0;
   padding: 5px 10px 0px 0px;
 }
+
 .drawer__bg {
   background-color: $drawerLightBlue !important;
 }
+
 .drawer__content {
   color: $drawerBlue !important;
 
@@ -149,15 +166,19 @@ export default {
     color: inherit !important;
   }
 }
+
 .hide {
   display: none;
 }
+
 .no-overflow-x {
   overflow-x: hidden;
 }
+
 .no-wordbreak {
   word-break: normal;
 }
+
 .site__info {
   position: absolute;
   bottom: 0;
@@ -169,5 +190,10 @@ export default {
 
 .drawer__content--small {
   font-size: 0.75rem;
+}
+
+.project-dialog {
+  // selector lives here because content-class used on v-dialog is not scoped
+  box-shadow: none !important;
 }
 </style>

@@ -1,68 +1,90 @@
 <template>
   <div id="portfolio">
-    <v-layout row wrap>
-      <v-flex xs12 sm12>
-        <v-card
-          v-for="(company, idx1) in companies"
+    <v-container fluid>
+      <v-row>
+        <v-col
+          v-for="(company, idx1) in portfolio"
           :key="`${company}-${idx1}`"
-          elevation="10"
-          tile
+          cols="12"
         >
-          <v-card-title
-            v-html="company.company"
-            @click="openPage(company.url)"
-          ></v-card-title>
-          <v-card-subtitle v-html="company.industry"></v-card-subtitle>
-          <v-card-text>
-            <project
-              v-for="(project, idx2) in company.projects"
-              :key="`${company}-${project}-${idx2}`"
-              :company="company.company"
-              :display="project.display"
-              :name="project.name"
-              :image-folder="project.folder"
-              :images="project.images"
-              @open="openPage(company.url)"
-            ></project>
-          </v-card-text>
-          <v-divider></v-divider>
-        </v-card>
-      </v-flex>
-    </v-layout>
+          <v-card elevation="5" tile class="my-4">
+            <v-card-title @click="openPage(company.url)">
+              {{ company.company }}
+            </v-card-title>
+            <v-card-subtitle>
+              <em>{{ company.industry }}</em>
+            </v-card-subtitle>
+            <v-card-text>
+              <project
+                v-for="(project, idx2) in company.projects"
+                :key="`${project}-${idx2}`"
+                :company="company.company"
+                :display="project.display"
+                :name="project.name"
+                :url="company.url"
+                :image-folder="project.folder"
+                :images="project.images"
+              ></project>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+    <project-dialog></project-dialog>
   </div>
 </template>
 
 <script>
-import Project from '@/components/Project.vue';
-
 export default {
   name: 'Portfolio',
-  components: {
-    Project,
-  },
   data() {
     return {
-      companies: [
+      portfolio: [
         {
           company: 'WebMD (Medscape)',
+          city: 'New York, NY',
           url: '//www.medscape.com',
           industry: 'Health News - Publishing',
-          projects: [],
+          projects: [
+            {
+              display: true,
+              name: 'Coming Soon!',
+              folder: '',
+              images: [],
+            },
+          ],
         },
         {
           company: 'Thomas',
+          city: 'New York, NY',
           url: '//www.thomasnet.com',
           industry: 'Industry',
-          projects: [],
+          projects: [
+            {
+              display: true,
+              name: 'Coming Soon!',
+              folder: '',
+              images: [],
+            },
+          ],
         },
         {
           company: 'WebMD',
+          city: 'New York, NY',
           url: '//www.webmd.com',
           industry: 'Health News - Publishing',
-          projects: [],
+          projects: [
+            {
+              display: true,
+              name: 'Coming Soon!',
+              folder: '',
+              images: [],
+            },
+          ],
         },
         {
           company: 'Time Inc.',
+          city: 'New York, NY',
           url: '//www.timeinc.com',
           industry: 'Digital Media - Publishing',
           projects: [
@@ -202,6 +224,7 @@ export default {
         },
         {
           company: 'New York Post',
+          city: 'New York, NY',
           url: '//www.nypost.com',
           industry: 'Digital Media - Publishing',
           projects: [
@@ -289,6 +312,7 @@ export default {
         },
         {
           company: 'Acxiom Digital',
+          city: 'New York, NY',
           url: '//www.acxiom.com',
           industry: 'Email Marketing',
           projects: [
@@ -337,6 +361,7 @@ export default {
         },
         {
           company: 'krofecheck.com',
+          city: 'Queens, NY',
           url: '//wedding.krofecheck.com',
           industry: 'Personal',
           projects: [
@@ -354,13 +379,6 @@ export default {
         },
       ],
     };
-  },
-  methods: {
-    openPage(url) {
-      if (url) {
-        window.open(url);
-      }
-    },
   },
 };
 </script>
