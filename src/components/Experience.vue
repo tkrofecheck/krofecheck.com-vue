@@ -19,27 +19,33 @@
               >
                 <v-card flat tile outlined elevation="5">
                   <v-container fluid>
-                    <v-row>
-                      <v-col>
+                    <v-row class="ma-0 pa-1">
+                      <v-col cols="12" sm="4" class="ma-0 pa-1">
                         <v-card-title>{{ exp.city }}</v-card-title>
                       </v-col>
                     </v-row>
-                    <v-row>
+                    <v-row class="ma-0 pa-1">
                       <v-col
                         v-for="(company, index) in exp.companies"
                         :key="`${company}-${index}`"
                         cols="12"
                         sm="4"
+                        :class="`ma-0 pa-1`"
                       >
-                        <div>
-                          <strong>{{ company.company }}</strong>
-                        </div>
-                        <div>
-                          {{ company.industry }}
-                        </div>
-                        <div>
-                          <em>{{ company.position }}</em>
-                        </div>
+                        <v-card-text>
+                          <div>
+                            <strong>{{ company.company }}</strong>
+                          </div>
+                          <div>
+                            {{ company.industry }}
+                          </div>
+                          <div>
+                            <em>{{ company.position }}</em>
+                          </div>
+                          <div>
+                            <small>{{ company.year }}</small>
+                          </div>
+                        </v-card-text>
                       </v-col>
                     </v-row>
                   </v-container>

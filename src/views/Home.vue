@@ -3,7 +3,7 @@
     <v-row dense>
       <v-col cols="12">
         <intro
-          :info="`Hi, my name is Tim Krofecheck! I am a seasoned Web Developer with ${skillset.max} years professional experience. I live in Queens, NY and working at WebMD as Senior Web Developer. Currently, my favorite tech to work with Vue.js. Prior to WebMD, I worked at Thomas as a UI Engineer helping rebrand the company website. I've also spent time at Time Inc. as an HTML5 developer creating webview storefronts on the iPad, iPhone and Kindle Fire. I've also upheld several development roles at the New York Post, Acxiom Digital and Colgate University. During my free time, I enjoy Freelancing and networking with others, so feel free to send me a message!`"
+          :info="`Hi, my name is Tim Krofecheck! I am a seasoned Web Developer with ${skillset.max} years professional experience. I live in Queens, NY and working at WebMD as Team Lead of Development. Currently, my favorite tech to work with Vue.js. Prior to WebMD, I worked at Thomas as a UI Engineer helping rebrand the company website. I've also spent time at Time Inc. as an HTML5 developer creating webview storefronts on the iPad, iPhone and Kindle Fire. I've also upheld several development roles at the New York Post, Acxiom Digital and Colgate University. During my free time, I enjoy Freelancing and networking with others, so feel free to send me a message!`"
           title="Who is he?"
         ></intro>
       </v-col>
@@ -11,7 +11,7 @@
         <experience
           :list="experience"
           title="Where has he been?"
-          info="After completing my Bachelor's degree at SUNY Morrisville, I've had the opportunities to work and live in various places through New York State."
+          info="After completing my Bachelor of Technology (focus: Web Development) degree at SUNY Morrisville, I've had the opportunities to work and live in various places in New York State."
         ></experience>
         <skillset
           :max="skillset.max"
@@ -70,33 +70,39 @@ export default {
           companies: [
             {
               company: 'WebMD (Medscape)',
-              position: 'Sr. Web Applications Developer (Lead)',
+              position: 'Sr. Web Applications Developer / Team Lead',
               industry: 'Health Media & Services',
+              year: 'Aug 2018 - Present',
             },
             {
               company: 'Thomas',
               position: 'UI Engineer',
               industry: 'Industrial Products',
+              year: 'Nov 2017 - Jul 2018',
             },
             {
               company: 'WebMD',
-              position: 'Sr. Web Developer (Lead)',
+              position: 'Sr. Web Developer / Tech Lead',
               industry: 'Health Media & Services',
+              year: 'May 2015 - Oct 2017',
             },
             {
               company: 'Time Inc.',
-              position: 'HTML Developer',
+              position: 'HTML Developer / Contract Developer',
               industry: 'Digital Publishing & Media',
+              year: 'Jul 2012 - Aug 2015',
             },
             {
               company: 'New York Post',
               position: 'Web Developer',
               industry: 'Publishing & Broadcasting',
+              year: 'Aug 2010 - Jul 2012',
             },
             {
               company: 'Acxiom Digital',
               position: 'Content Specialist / Solutions Developer',
               industry: 'Email Advertising & Marketing',
+              year: 'Dec 2005 - Jul 2010',
             },
           ],
         },
@@ -106,7 +112,8 @@ export default {
             {
               company: 'Linium LLC',
               position: 'Service Desk Support Professional',
-              industry: 'Software & Tech Services',
+              industry: 'Software & Technology Services',
+              year: 'Sep 2004 - Aug 2005',
             },
           ],
         },
@@ -117,6 +124,7 @@ export default {
               company: 'Colgate University',
               position: 'Desktop Support Intern',
               industry: 'Higher Education',
+              year: 'Jan 2004 - May 2004',
             },
           ],
         },
@@ -133,6 +141,7 @@ export default {
           { name: 'Agile', years: 7 },
           { name: 'Node.js', years: 7 },
           { name: 'Webpack', years: 6 },
+          { name: 'Grunt', years: 5 },
           { name: 'Handlebars', years: 3 },
           { name: 'Vue/Vuex', years: 2 },
           { name: 'React', years: 2 },
