@@ -6,7 +6,7 @@
   >
     <v-card-title class="no-wordbreak">{{ title }}</v-card-title>
     <v-card-text>
-      <span>{{ info }}</span>
+      <span v-html="info"></span>
     </v-card-text>
   </v-parallax>
 </template>
