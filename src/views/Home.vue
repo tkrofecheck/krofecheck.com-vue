@@ -23,7 +23,7 @@
         <hobby
           :list="hobbies"
           title="Why not do other things too?"
-          info="In my spare time I have sevaral interests and hobbies."
+          info="In my spare time I have several interests and hobbies."
         ></hobby>
         <contact
           :contact="true"
