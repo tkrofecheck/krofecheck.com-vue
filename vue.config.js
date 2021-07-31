@@ -10,6 +10,8 @@ module.exports = {
   assetsDir: '',
   outputDir: `dist/${pkg.version}`,
 
+  publicPath: process.env.NODE_ENV === 'production' ? '.' : '/',
+
   css: {
     extract: {
       filename: 'css/app.css',
