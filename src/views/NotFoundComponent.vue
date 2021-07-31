@@ -1,11 +1,10 @@
 <template>
   <center>
-    <parallax
-      :title="title"
-      :intro="true"
-      :info="info"
-      :background="background"
-    ></parallax>
+    <parallax :title="title" :intro="true"></parallax>
+    <h3>
+      Sorry you couldn't find what you were looking for.
+      <router-link to="/">GO TO HOMEPAGE</router-link>
+    </h3>
   </center>
 </template>
 
