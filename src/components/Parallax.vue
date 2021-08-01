@@ -1,12 +1,12 @@
 <template>
   <v-parallax
     src="../assets/cloud.jpg"
-    :height="`${intro ? 500 : 200}`"
+    :height="`${intro ? 550 : 250}`"
     :class="`${intro ? 'intro' : 'no-intro'}`"
   >
     <v-card-title class="no-wordbreak">{{ title }}</v-card-title>
     <v-card-text>
-      <span v-html="info"></span>
+      <span class="no-wordbreak" v-html="info"></span>
     </v-card-text>
   </v-parallax>
 </template>
@@ -48,7 +48,8 @@ export default {
   .v-card__text {
     color: $drawerBlue;
     font-weight: 500;
-    // text-shadow: 3px 1px $drawerLightBlue;
+    text-shadow: -1px -1px 0 $drawerLightBlue, 1px -1px 0 $drawerLightBlue,
+      -1px 1px 0 $drawerLightBlue, 1px 1px 0 $drawerLightBlue;
   }
 }
 
@@ -64,6 +65,7 @@ export default {
     }
   }
 }
+
 .no-intro {
   @include respond-above(phablet) {
     .v-card__title {
