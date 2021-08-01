@@ -37,7 +37,6 @@
 
 <script>
 import Intro from '../components/Intro.vue';
-import Contact from '../components/Contact.vue';
 import Experience from '../components/Experience.vue';
 import Skillset from '../components/Skillset.vue';
 import Hobby from '../components/Hobby.vue';
@@ -47,7 +46,6 @@ export default {
 
   components: {
     Intro,
-    Contact,
     Experience,
     Skillset,
     Hobby,

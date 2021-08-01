@@ -33,20 +33,20 @@
 
         <v-list dense>
           <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            :to="item.route"
-            @click.prevent="contactMe($event, item.action)"
+            v-for="route in routes"
+            :key="route.title"
+            :to="route.path"
+            @click.prevent="contactMe($event, route.action)"
           >
             <v-list-item-icon>
-              <v-icon class="drawer__content" :title="item.title">{{
-                item.icon
+              <v-icon class="drawer__content" :title="route.title">{{
+                route.icon
               }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
               <v-list-item-title class="drawer__content">{{
-                item.title
+                route.title
               }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -88,7 +88,6 @@
         <v-container fluid>
           <!-- If using vue-router -->
           <router-view></router-view>
-          <contact-dialog></contact-dialog>
         </v-container>
       </v-main>
     </v-app>
@@ -108,10 +107,10 @@ export default {
       copyright: `&copy;${new Date().getFullYear()}`,
       drawer: true,
       expYears: 16,
-      items: [
-        { title: 'Home', icon: 'mdi-home-city', route: '/' },
-        { title: 'Portfolio', icon: 'mdi-view-dashboard', route: '/portfolio' },
-        { title: 'Contact', icon: 'mdi-at', action: 'contactMe' },
+      routes: [
+        { title: 'Home', icon: 'mdi-home-city', path: '/' },
+        { title: 'Portfolio', icon: 'mdi-view-dashboard', path: '/portfolio' },
+        { title: 'Contact', icon: 'mdi-at', path: '/contact' },
       ],
       social: [
         {

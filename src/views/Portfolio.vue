@@ -36,8 +36,13 @@
 </template>
 
 <script>
+import Project from '../components/Project.vue';
+
 export default {
   name: 'Portfolio',
+  components: {
+    Project,
+  },
   data() {
     return {
       portfolio: [
