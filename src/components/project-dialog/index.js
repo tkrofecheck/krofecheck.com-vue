@@ -5,5 +5,5 @@ Vue.component('project-dialog', () =>
 );
 
 Vue.component('project-gallery', () =>
-  import(/* webpackChunkName: "project-gallery" */ './ProjectGallery.vue'),
+  import(/* webpackChunkName: "project-dialog" */ './ProjectGallery.vue'),
 );

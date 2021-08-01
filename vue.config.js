@@ -49,6 +49,12 @@ module.exports = {
           }\nfile: [file]\ntimestamp: ${DateTime.local()}`,
       }),
     ],
+    optimization: {
+      splitChunks: {
+        minSize: 10000,
+        maxSize: 200000,
+      },
+    },
   },
 
   chainWebpack: (/* config */) => {
