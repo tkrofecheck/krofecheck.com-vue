@@ -5,12 +5,13 @@
   "scripts": {
     "copy": "node -e \"require('fs').copyFile('dist/index.html', 'dist/404.html', function(err) { if (err) console.log(err); console.log('File successfully copied!') })\"",
     "update-ghpages": "git subtree push --prefix dist origin gh-pages",
+    "commit-updated-dist": "git commit -m 'updating dist after creating 404.html'",
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "dist": "npm run build && npm run deploy",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "deploy": "npm run copy && npm run update-ghpages"
+    "deploy": "npm run copy && npm run commit-updated-dist && npm run update-ghpages"
   },
   "dependencies": {
     "core-js": "^3.6.5",
