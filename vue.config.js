@@ -8,9 +8,10 @@ module.exports = {
   productionSourceMap: true,
   lintOnSave: process.env.NODE_ENV !== 'production',
   assetsDir: '',
-  outputDir: `dist/${pkg.version}`,
+  outputDir: 'dist',
 
-  publicPath: process.env.NODE_ENV === 'production' ? '.' : '/',
+  publicPath:
+    process.env.NODE_ENV === 'production' ? '/krofecheck.com-vue/' : '/',
 
   css: {
     extract: {
