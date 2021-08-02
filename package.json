@@ -1,17 +1,22 @@
 {
   "name": "krofecheck.com",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "private": true,
+  "author": "Tim Krofecheck (https://krofecheck.com/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkrofecheck/krofecheck.com-vue.git"
+  },
   "scripts": {
-    "copy": "node -e \"require('fs').copyFile('dist/index.html', 'dist/404.html', function(err) { if (err) console.log(err); console.log('File successfully copied!') })\"",
-    "update-ghpages": "git subtree push --prefix dist origin gh-pages",
-    "commit-updated-dist": "git commit -m 'updating dist after creating 404.html'",
     "serve": "vue-cli-service serve --open",
-    "build": "vue-cli-service build",
-    "dist": "npm run build && npm run deploy",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "deploy": "npm run copy && npm run commit-updated-dist && npm run update-ghpages"
+    "dist": "npm run build && npm run deploy",
+    "build": "vue-cli-service build",
+    "deploy": "npm run copy && npm run git && npm run postgit",
+    "copy": "node -e \"require('fs').copyFile('dist/index.html', 'dist/404.html', function(err) { if (err) console.log(err); console.log('File successfully copied!') })\"",
+    "git": "git add . && git commit -m 'updating dist for gh-pages'",
+    "postgit": "git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -32,7 +37,6 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
-    "copyfiles": "^2.4.1",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
