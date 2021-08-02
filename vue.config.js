@@ -10,8 +10,7 @@ module.exports = {
   assetsDir: '',
   outputDir: 'dist',
 
-  publicPath:
-    process.env.NODE_ENV === 'production' ? '/krofecheck.com-vue/' : '/',
+  publicPath: '/',
 
   css: {
     extract: {
