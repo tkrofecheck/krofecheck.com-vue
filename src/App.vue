@@ -36,7 +36,7 @@
             v-for="route in routes"
             :key="route.title"
             :to="route.path"
-            @click.prevent="contactMe($event, route.action)"
+            @click.prevent="keepCollapsed($event)"
           >
             <v-list-item-icon>
               <v-icon class="drawer__content" :title="route.title">{{
@@ -97,6 +97,7 @@
 <script>
 import { version } from '../package.json';
 import { bus } from './bus';
+import globals from './globals';
 
 export default {
   name: 'App',
@@ -110,7 +111,11 @@ export default {
       routes: [
         { title: 'Home', icon: 'mdi-home-city', path: '/' },
         { title: 'Portfolio', icon: 'mdi-view-dashboard', path: '/portfolio' },
-        { title: 'Contact', icon: 'mdi-at', path: '/contact' },
+        {
+          title: 'Contact',
+          icon: 'mdi-at',
+          path: '/contact',
+        },
       ],
       social: [
         {
@@ -127,13 +132,12 @@ export default {
       mini: true,
     };
   },
+  mounted() {
+    console.log('globals', globals);
+  },
   methods: {
-    contactMe(event, action) {
-      console.log(action, event);
-      if (action === 'contactMe') {
-        event.stopPropagation(); // do not open app nav drawer
-        bus.$emit('contact-dialog', true);
-      }
+    keepCollapsed(event) {
+      event.stopPropagation(); // do not open app nav drawer
     },
     goTo(item, event) {
       if (event) {

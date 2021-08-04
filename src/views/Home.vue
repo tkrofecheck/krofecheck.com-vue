@@ -25,11 +25,11 @@
           title="Why not do other things too?"
           info="In my spare time I have several interests and hobbies."
         ></hobby>
-        <contact
+        <!-- <contact
           :contact="true"
           title="How do you contact me?"
           info="I love to network with new people, so feel free to reach out!"
-        ></contact>
+        ></contact> -->
       </v-col>
     </v-row>
   </v-sheet>

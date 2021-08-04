@@ -1,178 +1,172 @@
 <template>
-  <v-card class="mx-auto px-4 py-4" tile>
-    <v-card-title class="no-overflow-x pl-0 pr-0">
-      <span>I love to network with new people, so feel free to reach out!</span>
-    </v-card-title>
-    <v-card-text class="no-overflow-x pl-0 pr-0">
-      <validation-observer ref="observer" v-slot="{ invalid }">
-        <form @submit.prevent="submit">
-          <validation-provider
-            v-slot="{ errors }"
-            name="Name"
-            rules="required|max:20"
-          >
-            <v-text-field
-              v-model="name"
-              :counter="20"
-              :error-messages="errors"
-              label="Name"
-              required
-            ></v-text-field>
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="email"
-            rules="required|email"
-          >
-            <v-text-field
-              v-model="email"
-              :error-messages="errors"
-              label="E-mail"
-              required
-            ></v-text-field>
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="select"
-            rules="required"
-          >
-            <v-select
-              v-model="select"
-              :items="items"
-              :error-messages="errors"
-              label="Topic"
-              data-vv-name="select"
-              required
-            ></v-select>
-          </validation-provider>
-          <validation-provider
-            v-slot="{ errors }"
-            name="message"
-            rules="required"
-          >
-            <v-textarea
-              v-model="message"
-              :error-messages="errors"
-              label="Message"
-              required
-            ></v-textarea>
-          </validation-provider>
-
-          <v-card-actions>
-            <v-btn class="primary mr-4" type="submit" :disabled="invalid">
-              submit
-            </v-btn>
-            <v-btn @click="clear"> clear </v-btn>
-          </v-card-actions>
-        </form>
-      </validation-observer>
-    </v-card-text>
-    <v-divider></v-divider>
-    <v-card-subtitle class="pb-0 pl-0 pr-0">
-      <v-footer class="footer inline-block no-wordbreak mt-4">
-        Upon clicking 'Submit', you will be redirected to a third-party
-        site.</v-footer
-      >
-    </v-card-subtitle>
+  <v-card>
+    <iframe
+      ref="iframe"
+      src="https://form.jotform.com/212146384429053"
+      id="JotFormIFrame-212146384429053"
+      title="Let's connect!"
+      allowtransparency="true"
+      allowfullscreen="true"
+      allow="geolocation; microphone; camera"
+      frameborder="0"
+      scrolling="no"
+      @load="fadeIn($event)"
+    ></iframe>
   </v-card>
 </template>
 
 <script>
-import { required, digits, email, max, regex } from 'vee-validate/dist/rules';
-import {
-  extend,
-  ValidationObserver,
-  ValidationProvider,
-  setInteractionMode,
-} from 'vee-validate';
-import jsonToFormData from '@/utils/jsonToFormData';
-
-setInteractionMode('eager');
-
-extend('digits', {
-  ...digits,
-  message: '{_field_} needs to be {length} digits. ({_value_})',
-});
-
-extend('required', {
-  ...required,
-  message: '{_field_} can not be empty',
-});
-
-extend('max', {
-  ...max,
-  message: '{_field_} may not be greater than {length} characters',
-});
-
-extend('regex', {
-  ...regex,
-  message: '{_field_} {_value_} does not match {regex}',
-});
-
-extend('email', {
-  ...email,
-  message: 'Email must be valid',
-});
-
 export default {
-  name: 'ContactForm',
-  components: {
-    ValidationProvider,
-    ValidationObserver,
-  },
+  name: 'Contact',
   data() {
     return {
-      name: '',
-      email: '',
-      select: null,
-      items: ['General', 'Freelancing', 'Recruiter'],
-      message: '',
-      formSubmitUrl: '',
-      formConfirmUrl: '',
+      ifr: null,
+      iframeParams: [],
     };
   },
+  created() {
+    if (window.addEventListener) {
+      window.addEventListener('message', this.handleIFrameMessage, false);
+    } else if (window.attachEvent) {
+      window.attachEvent('onmessage', this.handleIFrameMessage);
+    }
+  },
   mounted() {
-    this.formSubmitUrl = 'https://mailthis.to/TimKrofecheck';
-    this.formConfirmUrl = 'https://mailthis.to/confirm';
+    this.ifr = this.$refs.iframe;
+    this.setup();
   },
   methods: {
-    submit() {
-      if (!this.$refs.observer.validate()) {
-        return false;
+    fadeIn(event) {
+      console.log('fadeIn', event);
+      event.currentTarget.classList.add('visible');
+    },
+    handleIFrameMessage(e) {
+      if (typeof e.data === 'object') {
+        return;
       }
 
-      const formData = jsonToFormData({
-        name: this.name,
-        email: this.email,
-        _replyto: this.email,
-        _subject: `[${this.select}] from krofecheck.com`,
-        _after: window.location.href,
-        message: this.message,
-      });
+      const args = e.data.split(':');
+      let iframe =
+        args.length > 2
+          ? document.getElementById(`JotFormIFrame-${args[args.length - 1]}`)
+          : document.getElementById('JotFormIFrame');
 
-      console.log('form_data', formData);
+      if (!iframe) {
+        return;
+      }
 
-      fetch(this.formSubmitUrl, {
-        method: 'POST',
-        body: formData,
-      }).then((resData) => {
-        console.log('form submit response', resData);
-        window.location.href = this.formConfirmUrl;
-      });
+      switch (args[0]) {
+        case 'scrollIntoView':
+          iframe.scrollIntoView();
+          break;
+        case 'setHeight':
+          iframe.style.height = args[1] + 'px';
+          break;
+        case 'collapseErrorPage':
+          if (iframe.clientHeight > window.innerHeight) {
+            iframe.style.height = window.innerHeight + 'px';
+          }
+          break;
+        case 'reloadPage':
+          window.location.reload();
+          break;
+        case 'loadScript':
+          if (!this.isPermitted(e.origin, ['jotform.com', 'jotform.pro'])) {
+            break;
+          }
+          var src = args[1];
+          if (args.length > 3) {
+            src = args[1] + ':' + args[2];
+          }
+          var script = document.createElement('script');
+          script.src = src;
+          script.type = 'text/javascript';
+          document.body.appendChild(script);
+          break;
+        case 'exitFullscreen':
+          if (window.document.exitFullscreen) window.document.exitFullscreen();
+          else if (window.document.mozCancelFullScreen)
+            window.document.mozCancelFullScreen();
+          else if (window.document.mozCancelFullscreen)
+            window.document.mozCancelFullScreen();
+          else if (window.document.webkitExitFullscreen)
+            window.document.webkitExitFullscreen();
+          else if (window.document.msExitFullscreen)
+            window.document.msExitFullscreen();
+          break;
+      }
+      const isJotForm = e.origin.indexOf('jotform') > -1 ? true : false;
+      if (
+        isJotForm &&
+        'contentWindow' in iframe &&
+        'postMessage' in iframe.contentWindow
+      ) {
+        var urls = {
+          docurl: encodeURIComponent(document.URL),
+          referrer: encodeURIComponent(document.referrer),
+        };
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ type: 'urls', value: urls }),
+          '*',
+        );
+      }
     },
-    clear() {
-      this.name = '';
-      this.email = '';
-      this.message = '';
-      this.select = null;
-      this.$refs.observer.reset();
+    isPermitted(originUrl, whitelisted_domains) {
+      const url = document.createElement('a');
+      url.href = originUrl;
+      const hostname = url.hostname;
+      let result = false;
+      if (typeof hostname !== 'undefined') {
+        whitelisted_domains.forEach(function (element) {
+          if (
+            hostname.slice(-1 * element.length - 1) === '.'.concat(element) ||
+            hostname === element
+          ) {
+            result = true;
+          }
+        });
+        return result;
+      }
+    },
+    setup() {
+      let { ifr, iframeParams } = this;
+      let { src } = this.ifr;
+
+      if (ifr) {
+        if (window.location.href && window.location.href.indexOf('?') > -1) {
+          iframeParams = iframeParams.concat(
+            window.location.href
+              .substr(window.location.href.indexOf('?') + 1)
+              .split('&'),
+          );
+        }
+
+        if (src && src.indexOf('?') > -1) {
+          iframeParams = iframeParams.concat(
+            src.substr(src.indexOf('?') + 1).split('&'),
+          );
+          src = src.substr(0, src.indexOf('?'));
+        }
+
+        iframeParams.push('isIframeEmbed=1');
+
+        ifr.src = src + '?' + iframeParams.join('&');
+      }
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.footer {
-  font-size: 0.75rem;
+<style lang="scss">
+iframe {
+  min-width: 100%;
+  height: 539px;
+  border: none;
+  transition: opacity 0.5s linear;
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
 }
 </style>
