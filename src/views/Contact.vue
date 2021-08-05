@@ -5,20 +5,20 @@
     </v-card-title>
     <v-card-text class="no-overflow-x pl-0 pr-0">
       <validation-observer ref="observer" v-slot="{ invalid }">
-        <form @submit.prevent="submit">
-          <!-- <validation-provider
+        <form @submit.prevent="onSubmit">
+          <validation-provider
             v-slot="{ errors }"
             name="Name"
-            rules="required|max:20"
+            rules="required|max:40"
           >
             <v-text-field
               v-model="name"
               :counter="20"
               :error-messages="errors"
-              label="Name"
+              label="Full Name"
               required
             ></v-text-field>
-          </validation-provider> -->
+          </validation-provider>
           <validation-provider
             v-slot="{ errors }"
             name="email"
@@ -31,7 +31,7 @@
               required
             ></v-text-field>
           </validation-provider>
-          <!-- <validation-provider
+          <validation-provider
             v-slot="{ errors }"
             name="select"
             rules="required"
@@ -40,11 +40,11 @@
               v-model="select"
               :items="items"
               :error-messages="errors"
-              label="Topic"
+              label="Subject"
               data-vv-name="select"
               required
             ></v-select>
-          </validation-provider> -->
+          </validation-provider>
           <validation-provider
             v-slot="{ errors }"
             name="message"
@@ -58,13 +58,16 @@
             ></v-textarea>
           </validation-provider>
 
-          <vue-recaptcha
-            sitekey="6Ld1aN8bAAAAAGiTPvTa_83KPKqY0bHrA9PMR7I7"
-            :loadRecaptchaScript="true"
-          ></vue-recaptcha>
+          <v-card-actions class="d-block">
+            <div class="mb-4">
+              <recaptcha
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                :invisible="false"
+                @onVerified="onRecaptchaVerified"
+              ></recaptcha>
+            </div>
 
-          <v-card-actions>
-            <div>
+            <div class="mb-4">
               <v-btn class="primary mr-4" type="submit" :disabled="invalid">
                 submit
               </v-btn>
@@ -80,12 +83,12 @@
       </validation-observer>
     </v-card-text>
     <v-divider></v-divider>
-    <v-card-subtitle class="pb-0 pl-0 pr-0">
+    <!-- <v-card-subtitle class="pb-0 pl-0 pr-0">
       <v-footer class="footer inline-block no-wordbreak mt-4">
         Upon clicking 'Submit', you will be redirected to a third-party
         site.</v-footer
       >
-    </v-card-subtitle>
+    </v-card-subtitle> -->
   </v-card>
 </template>
 
@@ -97,8 +100,7 @@ import {
   ValidationProvider,
   setInteractionMode,
 } from 'vee-validate';
-import VueRecaptcha from 'vue-recaptcha';
-import jsonToFormData from '@/utils/jsonToFormData';
+import ReCaptcha from '../components/ReCaptcha.vue';
 
 setInteractionMode('eager');
 
@@ -132,17 +134,17 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
-    VueRecaptcha,
+    recaptcha: ReCaptcha,
   },
   data() {
     return {
-      // name: '',
+      name: '',
       email: '',
-      // select: null,
-      // items: ['General', 'Freelancing', 'Recruiter'],
+      select: null,
+      items: ['General', 'Freelancing', 'Recruiter'],
       message: '',
       formSubmitUrl: '',
-      // formConfirmUrl: '',
+      recaptcha: '',
       statusMessage: '',
     };
   },
@@ -150,29 +152,28 @@ export default {
     this.formSubmitUrl = 'https://formspree.io/f/xvodwdpo';
   },
   methods: {
-    submit() {
+    onSubmit() {
       if (!this.$refs.observer.validate()) {
         return false;
       }
 
-      const formData = jsonToFormData({
-        // name: this.name,
-        email: this.email,
-        // _replyto: this.email,
-        //_subject: `[${this.select}] from krofecheck.com`,
-        subject: `Message from krofecheck.com`,
-        // _after: window.location.href,
+      const formData = {
+        name: this.name,
+        _replyto: this.email,
+        _subject: `[${this.select}] message from krofecheck.com`,
         message: this.message,
-      });
+        'g-recaptcha-response': this.recaptcha,
+      };
 
       console.log('form_data', formData);
 
       fetch(this.formSubmitUrl, {
         method: 'POST',
-        body: formData,
         headers: {
-          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
+        body: JSON.stringify(formData),
       })
         .then((resData) => {
           console.log('form submit response', resData);
@@ -183,13 +184,15 @@ export default {
           this.statusMessage = 'Oops! There was a problem submitting your form';
         });
     },
-    onSubmitComplete(data) {
-      console.log('submit completed!', data);
+    onRecaptchaVerified(value) {
+      this.recaptcha = value;
     },
     clear() {
       this.name = '';
       this.email = '';
       this.message = '';
+      this._subject = '';
+      this.recaptcha = '';
       this.select = null;
       this.$refs.observer.reset();
     },
@@ -198,15 +201,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#g-recaptcha-response {
-  display: block !important;
-  position: absolute;
-  margin: -50px 0 0 0 !important;
-  z-index: -999999;
-  opacity: 0;
-}
-
 .footer {
   font-size: 0.75rem;
 }
 </style>
+
+<!--
+Form Data Example
+name: Tim Krofecheck
+_replyto: tkrofecheck@gmail.com
+message: Test
+_subject: Message from krofecheck.com
+g-recaptcha-response: 03AGdBq25NjwmqM9MnQ6jkNNos5R19Cdnve_dwL9QugevTd8Hw3P9K7HU0XcsDUlV948FAM5nFyYn-IviPuO5tGMbXSDlr6p57OYYQBRvHvYdJxzjn2mTXu6fTQzUMDTNT2_gAk9OHqhkxf6DsDTOrrOLAoNY01JWq7UDzbEt9_8mFSmUN5zVi5vrOrOUmcFeCTfnC6Qde2DXZ03Wi3F0F43dDXur5NqGn2b40_ZO2pS-t96SB01pOHXJV7Vw1OkxqgcgfIJ07GTwW6rFbEo2puuxPIkpN_7tnpmA6AS28eW5xAd4hVKFoIHg81_8SGH8lmN-nDkSHz_B_CF2FUCtzspFbWQRiLr63KqSBJMEo95OqHOKNFVVjBiclHya5qmHaIYrPxMAuL1Sq
+-->
