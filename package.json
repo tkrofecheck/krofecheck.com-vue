@@ -1,6 +1,6 @@
 {
   "name": "krofecheck.com",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "private": true,
   "author": "Tim Krofecheck (https://krofecheck.com/)",
   "repository": {
@@ -8,11 +8,11 @@
     "url": "https://github.com/tkrofecheck/krofecheck.com-vue.git"
   },
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve": "vue-cli-service serve --open --mode development",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "dist": "npm run build && npm run deploy",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --mode production",
     "deploy": "npm run copy && npm run git && npm run postgit",
     "copy": "node -e \"require('fs').copyFile('dist/index.html', 'dist/404.html', function(err) { if (err) console.log(err); console.log('File successfully copied!') })\"",
     "git": "git add . && git commit -m 'updating dist for gh-pages'",
