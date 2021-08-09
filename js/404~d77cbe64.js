@@ -1,9 +1,9 @@
 /*!
- * hash: ddcf4f01417e94b14058
+ * hash: 5bc7bf85f7aaa1601239
  * name: 404~d77cbe64
- * version: 1.1.9
+ * version: 1.2.0
  * file: js/404~d77cbe64.js
- * timestamp: 2021-08-05T16:58:09.902-04:00
+ * timestamp: 2021-08-09T08:45:48.660-04:00
  */
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["404~d77cbe64"],{9703:function(t,o,n){"use strict";n.r(o);var e=function(){var t=this,o=t.$createElement,n=t._self._c||o;return n("center",[n("parallax",{attrs:{title:t.title,intro:!0}}),n("h3",[t._v(" Sorry you couldn't find what you were looking for. "),n("router-link",{attrs:{to:"/"}},[t._v("GO TO HOMEPAGE")])],1)],1)},a=[],r=n("035a"),l={name:"NotFoundComponent",components:{Parallax:r["a"]},data:function(){return{title:"Page Not Found - 404",info:'Sorry you couldn\'t find what you were looking for. <a to="/">GO TO HOMEPAGE</a>'}}},u=l,i=n("2877"),c=Object(i["a"])(u,e,a,!1,null,"f09b7ae4",null);o["default"]=c.exports}}]);
 //# sourceMappingURL=404~d77cbe64.js.map
