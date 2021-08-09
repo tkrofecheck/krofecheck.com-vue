@@ -31,6 +31,10 @@ export default {
     'vue-recaptcha': VueRecaptcha,
   },
   props: {
+    clear: {
+      type: Boolean,
+      default: false,
+    },
     sitekey: {
       type: String,
       default: '',
@@ -55,5 +59,14 @@ export default {
       this.$refs.recaptcha.reset(); // Direct call reset method
     },
   },
+  watch: {
+    clear(newVal) {
+      if (newVal) {
+        this.resetRecaptcha();
+      }
+    },
+  },
 };
 </script>
+
+<style lang="scss" scoped></style>

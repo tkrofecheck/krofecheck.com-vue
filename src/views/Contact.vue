@@ -60,10 +60,19 @@
 
           <v-card-actions class="d-block">
             <div class="mb-4">
-              <recaptcha
-                :sitekey="sitekey"
-                @onVerified="onRecaptchaVerified"
-              ></recaptcha>
+              <validation-provider
+                v-slot="{ errors }"
+                name="recaptcha"
+                rules="required"
+              >
+                <recaptcha
+                  v-model="recaptcha"
+                  :clear="clearRecaptcha"
+                  :sitekey="sitekey"
+                  :error-messages="errors"
+                  @onVerified="onRecaptchaVerified"
+                ></recaptcha>
+              </validation-provider>
             </div>
 
             <div class="mb-4">
@@ -146,6 +155,7 @@ export default {
       recaptcha: '',
       statusMessage: '',
       sitekey: process.env.VUE_APP_RECAPTCHA_SITEKEY,
+      clearRecaptcha: false,
     };
   },
   mounted() {
@@ -174,15 +184,18 @@ export default {
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(formData),
-      })
-        .then((resData) => {
-          console.log('form submit response', resData);
+      }).then((resData) => {
+        console.log('form submit response', resData);
+        if (resData.status === 200) {
           this.statusMessage = 'Thanks for your submission!';
           this.$refs.observer.reset();
-        })
-        .catch(() => {
-          this.statusMessage = 'Oops! There was a problem submitting your form';
-        });
+          this.clear();
+        } else {
+          this.statusMessage =
+            resData.statusText ||
+            'Oops! There was a problem submitting your form';
+        }
+      });
     },
     onRecaptchaVerified(value) {
       this.recaptcha = value;
@@ -195,6 +208,7 @@ export default {
       this.recaptcha = '';
       this.select = null;
       this.$refs.observer.reset();
+      this.clearRecaptcha = true;
     },
   },
 };
