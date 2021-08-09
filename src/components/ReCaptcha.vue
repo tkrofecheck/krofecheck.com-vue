@@ -1,20 +1,22 @@
 <template>
   <div>
     <vue-recaptcha
-      v-if="invisible"
-      ref="invisibleRecaptcha"
+      v-if="!visible"
+      ref="recaptcha"
       @verify="onVerify"
       @expired="onExpired"
       size="invisible"
       :sitekey="sitekey"
+      :loadRecaptchaScript="true"
     >
     </vue-recaptcha>
     <vue-recaptcha
       v-else
-      ref="invisibleRecaptcha"
+      ref="recaptcha"
       @verify="onVerify"
       @expired="onExpired"
       :sitekey="sitekey"
+      :loadRecaptchaScript="true"
     >
     </vue-recaptcha>
   </div>
@@ -33,14 +35,14 @@ export default {
       type: String,
       default: '',
     },
-    invisible: {
+    visible: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   methods: {
     onSubmit: function () {
-      this.$refs.invisibleRecaptcha.execute();
+      this.$refs.recaptcha.execute();
     },
     onVerify: function (response) {
       console.log('Verify: ' + response);

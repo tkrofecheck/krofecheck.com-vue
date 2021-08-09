@@ -95,8 +95,6 @@
 </template>
 
 <script>
-import { version } from '../package.json';
-import { bus } from './bus';
 import globals from './globals';
 
 export default {
@@ -104,7 +102,7 @@ export default {
   components: {},
   data() {
     return {
-      buildInfo: `v${version}`,
+      buildInfo: `v${process.env.VUE_APP_VERSION}`,
       copyright: `&copy;${new Date().getFullYear()}`,
       drawer: true,
       expYears: 16,

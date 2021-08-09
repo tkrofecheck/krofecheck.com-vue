@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const { DateTime } = require('luxon');
 const pkg = require('./package.json');
 
+process.env.VUE_APP_VERSION = require('./package.json').version;
+
 module.exports = {
   runtimeCompiler: true,
   filenameHashing: false,

@@ -61,8 +61,7 @@
           <v-card-actions class="d-block">
             <div class="mb-4">
               <recaptcha
-                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                :invisible="false"
+                :sitekey="sitekey"
                 @onVerified="onRecaptchaVerified"
               ></recaptcha>
             </div>
@@ -146,10 +145,11 @@ export default {
       formSubmitUrl: '',
       recaptcha: '',
       statusMessage: '',
+      sitekey: process.env.VUE_APP_RECAPTCHA_SITEKEY,
     };
   },
   mounted() {
-    this.formSubmitUrl = 'https://formspree.io/f/xvodwdpo';
+    this.formSubmitUrl = process.env.VUE_APP_CONTACT_FORM_URL;
   },
   methods: {
     onSubmit() {
