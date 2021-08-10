@@ -86,31 +86,30 @@ export default {
 
 <style lang="scss" scoped>
 .close__btn {
-  display: fixed;
+  position: absolute;
+  top: 0;
+  right: 0;
   z-index: 1000;
 
   .v-icon {
     position: absolute;
+    display: block;
     top: 0;
     right: 0;
+    font-size: 28px;
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.5);
     text-shadow: 1px 1px black;
   }
 }
 
-.project__name {
-  font-size: 1.125rem;
-  @include respond-above(phablet) {
-    font-size: 1.25rem;
-  }
-}
-
 .project__text {
-  position: fixed;
+  position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   bottom: 0;
   left: 0;
+  right: 0;
+  width: 100%;
   color: $white;
 }
 </style>

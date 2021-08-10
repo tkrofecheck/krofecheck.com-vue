@@ -149,13 +149,6 @@ export default {
 </script>
 
 <style lang="scss">
-.close__btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 5px 10px 0px 0px;
-}
-
 .drawer__bg {
   background-color: $drawerLightBlue !important;
 }
