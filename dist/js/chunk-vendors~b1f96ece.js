@@ -1,9 +1,9 @@
 /*!
- * hash: 497f360991e58495f0ee
+ * hash: 097bfeb996b7bfd08411
  * name: chunk-vendors~b1f96ece
- * version: 1.2.1
+ * version: 1.2.2
  * file: js/chunk-vendors~b1f96ece.js
- * timestamp: 2021-08-09T09:23:31.020-04:00
+ * timestamp: 2021-08-10T07:14:14.894-04:00
  */
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-vendors~b1f96ece"],{"8c4f":function(t,e,r){"use strict";
 /*!
