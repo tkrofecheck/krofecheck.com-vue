@@ -55,8 +55,34 @@ export default {
           projects: [
             {
               display: true,
-              name: 'Coming Soon!',
-              folder: '',
+              name: 'Brand Alert',
+              folder: 'webmd/ba',
+              images: [
+                { name: 'brandalert1.png' },
+                { name: 'brandalert2.png' },
+                { name: 'brandalert3.png' },
+                { name: 'brandalert4.png' },
+                { name: 'brandalert5.png' },
+              ],
+            },
+            {
+              display: true,
+              name: 'Point of Contact (Targetted Ads)',
+              folder: 'webmd/poc',
+              images: [
+                { name: 'squareboy1.png' },
+                { name: 'ad-banner1.png' },
+                { name: 'ad-banner2.png' },
+                { name: 'ad-banner3.png' },
+                { name: 'mobile1.png' },
+                { name: 'mobile2.png' },
+                { name: 'mobile3.png' },
+              ],
+            },
+            {
+              display: true,
+              name: 'BrandSpot (Targetted Ads)',
+              folder: 'webmd/bs',
               images: [],
             },
           ],

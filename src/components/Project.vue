@@ -2,7 +2,7 @@
   <div :class="classNames">
     {{ name }}
     <v-btn
-      v-if="imageFolder !== ''"
+      v-if="imageFolder !== '' && images.length > 0"
       color="primary"
       class="ma-2"
       dark
@@ -15,6 +15,7 @@
         View <v-icon>mdi-eye-outline</v-icon>
       </span>
     </v-btn>
+    <span v-else class="ma-2">Coming Soon!</span>
   </div>
 </template>
 
